@@ -63,9 +63,9 @@ export class AgendacitasComponent {
       {
         id: '3',
         title: 'Workshop',
-        start: new Date(Date.now() + 172800000).toISOString().split('T')[0],
-        end: new Date(Date.now() + 259200000).toISOString().split('T')[0],
-        extendedProps: { calendar: 'Primary' }
+        start: new Date(Date.now() + 172800000).toISOString().split('.')[0],
+        end: new Date(Date.now() + 259200000).toISOString().split('.')[0],
+        extendedProps: { calendar: 'Danger' }
       }
     ];
 
@@ -73,6 +73,7 @@ export class AgendacitasComponent {
       plugins: [dayGridPlugin, timeGridPlugin, interactionPlugin],
       initialView: 'dayGridMonth',
       locale: 'ES',
+      slotLabelFormat: { hour: '2-digit', minute: '2-digit', meridiem: 'short', hour12: true },
       headerToolbar: {
         left: 'prev,next addEventButton',
         center: 'title',
@@ -84,7 +85,7 @@ export class AgendacitasComponent {
       eventClick: (info) => this.handleEventClick(info),
       customButtons: {
         addEventButton: {
-          text: 'Agendar Cita + ',
+          text: 'Agendar cita +',
           click: () => this.openModal()
         }
       },
@@ -117,6 +118,10 @@ export class AgendacitasComponent {
 
   handleAddOrUpdateEvent() {
     if (this.selectedEvent) {
+      if (!this.eventTitle || !this.eventStartDate || !this.eventLevel) {
+        return;
+      }
+      
       this.events = this.events.map(ev =>
         ev.id === this.selectedEvent!.id
           ? {
@@ -129,6 +134,11 @@ export class AgendacitasComponent {
           : ev
       );
     } else {
+      
+      if (!this.eventTitle || !this.eventStartDate || !this.eventLevel) {
+        return;
+      }
+
       const newEvent: CalendarEvent = {
         id: Date.now().toString(),
         title: this.eventTitle,
