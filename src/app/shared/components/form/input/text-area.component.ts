@@ -7,7 +7,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
   imports: [CommonModule],
   template: `
     <div class="relative">
-      <textarea
+      <textarea class="placeholder:text-gray-400"
         [placeholder]="placeholder"
         [rows]="rows"
         [value]="value"
@@ -28,7 +28,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class TextAreaComponent {
 
-  @Input() placeholder = 'Enter your message';
+  @Input() placeholder = 'Ingrese su mensaje';
   @Input() rows = 3;
   @Input() value = '';
   @Input() className = '';

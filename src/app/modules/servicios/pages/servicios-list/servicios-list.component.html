@@ -1,0 +1,52 @@
+<app-page-breadcrumb pageTitle="Servicios" />
+<div class="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
+    <h3 class="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
+        Gestion de Servicios
+    </h3>
+    <div class="space-y-6">
+        <app-table-listservicios 
+            [serviciosList]="servicioResource.value()?.servicios ?? []"
+            (openModal)="openModalServicios.set($event)" 
+            (openModalDelete)="openModalDelete.set($event)"
+            (servicioEdit)="servicioInfo.set($event)"
+            (option)="optionModal.set($event)" />   
+    </div>
+</div>
+
+<app-modal [isOpen]="openModalServicios()"
+           (close)="closeModal()"
+           className="max-w-[1000px] p-6 lg:p-10">
+    
+           @if (openModalServicios()) {
+               <app-add-servicio-modal 
+                   (serviceSaved)="onServiceSaved()"
+                   [dataServicio]="servicioInfo()!"
+                   [option]="optionModal()"/>
+           }
+</app-modal>
+
+
+<app-modal [isOpen]="openModalDelete()" 
+           (close)="closeModal()" 
+           className="max-w-[507px] p-6 lg:p-10" 
+           [showCloseButton]="false">
+      <div class="text-center">
+        <h4 class="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90 sm:text-title-sm">
+          Eliminar Servicio
+        </h4>
+        <p class="text-sm leading-6 text-gray-500 dark:text-gray-400">
+          ¿Estas seguro de eliminar este servicio?
+        </p>
+
+        <div class="flex items-center justify-center w-full gap-3 mt-8">
+          <app-button size="sm" variant="outline" (btnClick)="closeModal()">
+            Cancelar
+          </app-button>
+          <app-button size="sm" variant="outline" (btnClick)="deleteService()">
+            Eliminar
+          </app-button>
+        </div>
+      </div>
+</app-modal>
+
+

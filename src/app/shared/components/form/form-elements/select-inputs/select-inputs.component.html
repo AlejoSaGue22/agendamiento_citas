@@ -15,10 +15,10 @@
         label="Multiple Select Options"
         [options]="multiOptions"
         [defaultSelected]="selectedValues"
-        (selectionChange)="handleMultiSelectChange($event)"
-      ></app-multi-select>
+        (selectionChange)="handleMultiSelectChange($event)">
+      </app-multi-select>
       <p class="sr-only">
-        Selected Values: {{ selectedValues.join(', ') }}
+          Selected Values: {{ selectedValues.join(', ') }}
       </p>
     </div>
   </div>

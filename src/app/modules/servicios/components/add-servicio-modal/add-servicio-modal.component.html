@@ -1,0 +1,73 @@
+<div class="flex flex-col px-2 overflow-y-auto custom-scrollbar">
+    <form [formGroup]="formServicios" (ngSubmit)="onSubmit()">
+            <div>
+                    <h5 class="mb-2 font-semibold text-gray-800 modal-title text-theme-xl dark:text-white/90 lg:text-2xl">
+                        {{ option() == 'edit' ? 'Editar Servicio' : 'Agregar Servicio' }}
+                    </h5>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">
+                        Planifique su próximo gran momento: programe o edite una servicio para mantenerse en el buen camino
+                    </p>
+            </div>
+
+            <div class="flex gap-3 mt-6">
+                <div>
+                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                        Nombre
+                    </label>
+
+                    <input
+                    type="text" 
+                    formControlName="name"
+                    placeholder="Escribe el nombre del servicio"
+                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent pl-5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:text-white/90dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[430px]" /> 
+                </div>
+
+                <div class="w-1/4">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Duracion (min)
+                        </label>
+                        <input
+                        id="event-start-date"
+                        type="text"
+                        placeholder="ej. 45"
+                        formControlName="duration_minutes"
+                        class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                        />
+                </div>
+
+                <div class="w-1/4">
+                        <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                            Precio ($)
+                        </label>
+                        <input
+                        id="precio"
+                        type="text"
+                        formControlName="price"
+                        placeholder="ej. 25.00"
+                        class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                        />
+                </div>
+
+            </div>
+
+            <div class="mt-6">
+                <div>
+                        <app-label>Descripcion</app-label>
+                        <app-text-area
+                            [value]="formServicios.controls.description.value!"
+                            (valueChange)="onformChange($event)"
+                            [rows]="6"
+                        ></app-text-area>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-3 mt-6 modal-footer sm:justify-end">
+                    <button
+                        type="submit"
+                        class="btn btn-success btn-update-event flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
+                    >
+                        {{ option() == 'edit' ? 'Actualizar Servicio' : 'Agregar Servicio' }}
+                    </button>
+            </div>
+    </form>
+</div>

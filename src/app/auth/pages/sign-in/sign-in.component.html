@@ -1,3 +1,11 @@
-<app-auth-page-layout>
-  <app-signin-form class="flex flex-col flex-1"/>
-</app-auth-page-layout>
+@if ( !isLoading() ) {
+    <app-auth-page-layout>
+        <app-signin-form class="flex flex-col flex-1" (valueForm)="onSignIn($event)"/>
+    </app-auth-page-layout>
+}
+
+@if ( isLoading() ) {
+    <div class="flex justify-center items-center h-screen">
+                <app-loader/>  
+    </div>
+}

@@ -1,0 +1,108 @@
+<div class="rounded-2xl border border-gray-200 bg-white">
+        <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
+            <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+                Disponibilidad Semanal
+            </h2>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                Define los horarios de trabajo para cada día de la semana
+            </p>
+        </div>
+        <div class="space-y-5 p-4 sm:p-6">
+            <!-- Contenido -->
+            <div class="space-y-5 p-6">
+                    <!-- Días de la semana -->
+                    <div class="grid grid-cols-3 space-y-3.5 gap-3">
+                        @for (day of daysOfWeek; track $index) {
+                            <div class="rounded-lg border border-gray-200 p-4 dark:border-gray-700">
+                                <!-- Fila superior: Nombre y estado -->
+                                <div class="mb-4 flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <h3 class="text-base font-medium text-gray-800 dark:text-white">
+                                    {{ day.name }}
+                                    </h3>
+                                    <span class="rounded-full px-3 py-1 text-xs font-medium" [ngClass]="getDayStatusClass(day)">
+                                    {{ getDayStatus(day) }}
+                                    </span>
+                                </div>
+                                
+                                <!-- Toggle switch -->
+                                <label class="inline-flex cursor-pointer items-center">
+                                    <input 
+                                    type="checkbox" 
+                                    [checked]="day.enabled"
+                                    (change)="toggleDay(day)"
+                                    class="peer sr-only"
+                                    >
+                                    <div class="peer relative h-6 w-11 rounded-full bg-gray-200 after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:bg-blue-600 peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300/25 rtl:peer-checked:after:-translate-x-full dark:border-gray-600 dark:bg-gray-700 dark:peer-focus:ring-blue-800/50"></div>
+                                </label>
+                                </div>
+                        
+                                <!-- Horarios (solo si está habilitado) -->
+                                @if (day.enabled) {
+                                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                                        <!-- Hora de inicio -->
+                                        <div>
+                                        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                            Hora de inicio
+                                        </label>
+                                        <div class="relative">
+                                            <input 
+                                            type="time" 
+                                            [(ngModel)]="day.startTime"
+                                            (change)="inputHoraChange()"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            required
+                                            >
+                                        </div>
+                                        </div>
+                            
+                                        <!-- Hora de fin -->
+                                        <div>
+                                        <label class="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                            Hora de fin
+                                        </label>
+                                        <div class="relative">
+                                            <input 
+                                            type="time" 
+                                            [(ngModel)]="day.endTime"
+                                            (change)="inputHoraChange()"
+                                            class="block w-full rounded-lg border border-gray-300 bg-gray-50 p-2.5 text-sm text-gray-900 focus:border-blue-500 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 dark:focus:border-blue-500 dark:focus:ring-blue-500"
+                                            required
+                                            >
+                                        </div>
+                                        </div>
+                                    </div>
+                                }
+                        
+                                <!-- Mensaje cuando está deshabilitado -->
+                                @if (!day.enabled) {
+                                    <div class="text-center">
+                                        <p class="text-sm text-gray-500 dark:text-gray-400">
+                                                {{ day.name }} - Día de descanso
+                                        </p>
+                                    </div>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                <!-- Botones de acción -->
+                <!-- <div class="flex justify-end space-x-3 pt-4 border-t border-gray-200 dark:border-gray-800">
+                        <button 
+                        type="button" 
+                        class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-4 focus:ring-gray-200 dark:border-gray-600 dark:text-gray-400 dark:hover:border-gray-600 dark:hover:bg-gray-700 dark:focus:ring-gray-700"
+                        (click)="resetForm()">
+                        Cancelar
+                        </button>
+                        <button 
+                        type="button" 
+                        class="rounded-lg bg-blue-700 px-5 py-2.5 text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                        (click)="saveDisponiblidad()">
+                        Guardar Disponibilidad
+                        </button>
+                    </div> -->
+            </div>
+        </div>
+</div>
+
+

@@ -4,12 +4,10 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'app-avatar-text',
   imports: [CommonModule],
-  template: `<div
-    class="flex h-10 w-10 items-center justify-center rounded-full 
-    {{colorClass}} {{ className }}"
-  >
-    <span class="text-sm font-medium">{{ initials }}</span>
-  </div>`,
+  template: `<div class="flex h-10 w-10 items-center justify-center rounded-full 
+                 {{colorClass}} {{ className }}">
+                <span class="text-sm font-medium">{{ initials }}</span>
+            </div>`,
 })
 export class AvatarTextComponent {
   @Input() name!: string;

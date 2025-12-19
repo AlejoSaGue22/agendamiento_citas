@@ -1,11 +1,16 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, computed, inject, output } from '@angular/core';
 import { LabelComponent } from '../../form/label/label.component';
 import { CheckboxComponent } from '../../form/input/checkbox.component';
 import { ButtonComponent } from '../../ui/button/button.component';
 import { InputFieldComponent } from '../../form/input/input-field.component';
-import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
+interface FormLogin {
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: 'app-signin-form',
@@ -17,25 +22,49 @@ import { FormsModule } from '@angular/forms';
     InputFieldComponent,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule
   ],
   templateUrl: './signin-form.component.html',
   styles: ``
 })
 export class SigninFormComponent {
 
+  private fb = inject(FormBuilder);
   showPassword = false;
   isChecked = false;
+  valueForm = output<FormLogin>()
 
-  email = '';
-  password = '';
+  formAuth = this.fb.group({
+    email: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
   }
 
+  onformChange(value: string | number, input: string){
+      const event = value.toString();
+        if (input == 'email') {
+          this.formAuth.controls.email.setValue(event);
+        }
+
+        if (input == 'password') {
+          this.formAuth.controls.password.setValue(event);
+        }
+    }
+
   onSignIn() {
-    console.log('Email:', this.email);
-    console.log('Password:', this.password);
-    console.log('Remember Me:', this.isChecked);
+    const valid = this.formAuth.valid;
+    this.formAuth.markAllAsTouched();
+
+    if (!valid) {
+      alert('Formulario Invalido');
+      return
+    }
+    
+    const value = this.formAuth.value;
+    this.valueForm.emit(value as FormLogin);
+    
   }
 }
