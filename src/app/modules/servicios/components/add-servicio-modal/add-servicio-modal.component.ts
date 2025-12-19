@@ -7,12 +7,14 @@ import { ServicesService } from '../../../../services/services.service';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../../shared/services/notificacion.service';
+import { FormErrorLabel } from "../../../../utils/components/form-error-label/form-error-label.component";
+import { FormUtils } from '../../../../utils/form.utils';
 
 export type optionAdd = 'add' | 'edit' | 'delete';
 
 @Component({
   selector: 'app-add-servicio-modal',
-  imports: [LabelComponent, TextAreaComponent, ReactiveFormsModule],
+  imports: [LabelComponent, TextAreaComponent, ReactiveFormsModule, FormErrorLabel],
   templateUrl: './add-servicio-modal.component.html',
 })
 export class AddServicioModal implements AfterContentInit {
@@ -27,10 +29,10 @@ export class AddServicioModal implements AfterContentInit {
     private fb = inject(FormBuilder);
 
     formServicios = this.fb.group({
-      name: ['', Validators.required],
+      name: ['', [Validators.required, Validators.pattern(FormUtils.namePattern)]],
       description: [''],
-      duration_minutes: ['', Validators.required],
-      price: ['']
+      duration_minutes: ['', [Validators.required, Validators.pattern(FormUtils.numberPattern)]],
+      price: ['', Validators.required]
     })
 
     ngAfterContentInit(): void {
@@ -51,12 +53,12 @@ export class AddServicioModal implements AfterContentInit {
       this.formServicios.markAllAsTouched();
 
       if(!valid) {
-        this.notificationService.error(
-                "Formulario Invalido",
-                'Error',
-                4000
+              this.notificationService.error(
+                    "Formulario Invalido",
+                    'Error',
+                    4000
               ); 
-        return
+        return;
       };
 
       const formValue = this.formServicios.value;

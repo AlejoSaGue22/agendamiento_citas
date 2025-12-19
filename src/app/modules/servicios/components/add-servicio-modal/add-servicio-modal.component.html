@@ -17,9 +17,12 @@
 
                     <input
                     type="text" 
+                    [class.border-red-500]="formServicios.get('name')?.errors ?? false"
                     formControlName="name"
                     placeholder="Escribe el nombre del servicio"
-                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent pl-5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:text-white/90dark:placeholder:text-white/30 dark:focus:border-brand-800 xl:w-[430px]" /> 
+                    class="dark:bg-dark-900 h-11 w-full rounded-lg border border-gray-200 bg-transparent pl-5 text-sm text-gray-800 shadow-theme-xs placeholder:text-gray-400 focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-800 dark:text-white/90dark:placeholder:text-white/30 dark:focus:border-brand-800" /> 
+                
+                    <app-form-error-label [errorType]="formServicios.get('name')!" />
                 </div>
 
                 <div class="w-1/4">
@@ -29,10 +32,13 @@
                         <input
                         id="event-start-date"
                         type="text"
+                        [class.border-red-500]="formServicios.get('duration_minutes')?.errors ?? false"
                         placeholder="ej. 45"
                         formControlName="duration_minutes"
                         class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-                        />
+                        />  
+
+                        <app-form-error-label [errorType]="formServicios.get('duration_minutes')!" />
                 </div>
 
                 <div class="w-1/4">
@@ -42,10 +48,13 @@
                         <input
                         id="precio"
                         type="text"
+                        [class.border-red-500]="formServicios.get('price')?.errors ?? false"
                         formControlName="price"
                         placeholder="ej. 25.00"
                         class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
                         />
+
+                        <app-form-error-label [errorType]="formServicios.get('price')!" />
                 </div>
 
             </div>

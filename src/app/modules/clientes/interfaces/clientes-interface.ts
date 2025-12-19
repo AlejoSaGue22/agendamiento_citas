@@ -7,6 +7,8 @@ export interface ClienteResponse {
 export interface ClienteInterface {
     id: string;
     full_name: string;
+    name_client: string;
+    last_name: string;
     email: string;
     phone: string;
     notes: string;

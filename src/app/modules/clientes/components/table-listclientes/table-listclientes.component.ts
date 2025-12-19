@@ -3,10 +3,11 @@ import { optionAdd } from '../../../servicios/components/add-servicio-modal/add-
 import { BadgeComponent } from "../../../../shared/components/ui/badge/badge.component";
 import { AvatarTextComponent } from "../../../../shared/components/ui/avatar/avatar-text.component";
 import { ClienteInterface } from '../../interfaces/clientes-interface';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-table-listclientes',
-  imports: [BadgeComponent, AvatarTextComponent],
+  imports: [BadgeComponent, AvatarTextComponent, DatePipe],
   templateUrl: './table-listclientes.component.html',
 })
 export class TableListclientes {
@@ -15,6 +16,7 @@ export class TableListclientes {
       selectedRows: string[] = [];
       selectAll: boolean = false;
       openModal = output<boolean>();
+      openModalDelete = output<boolean>();
       option = output<optionAdd>();
       clienteEdit = output<any>();
 
@@ -43,8 +45,12 @@ export class TableListclientes {
           }
 
           this.option.emit('edit');
-          console.log(cliente);
           this.clienteEdit.emit(cliente);
+      }
+
+      modalDelete(servicio: ClienteInterface){
+            this.openModalDelete.emit(true);
+            this.clienteEdit.emit(servicio);
       }
 
       getBadgeColor(type: string): 'success' | 'warning' | 'error' {
