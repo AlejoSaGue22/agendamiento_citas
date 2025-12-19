@@ -6,6 +6,8 @@ import { optionAdd } from '../../../servicios/components/add-servicio-modal/add-
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from "../../../../shared/components/form/label/label.component";
 import { TextAreaComponent } from "../../../../shared/components/form/input/text-area.component";
+import { rxResource } from '@angular/core/rxjs-interop';
+import { ClientesService } from '../../../../services/clientes.service';
 
 @Component({
   selector: 'app-clientes-list',
@@ -14,11 +16,11 @@ import { TextAreaComponent } from "../../../../shared/components/form/input/text
 })
 export class ClientesListComponent {
       
-  selectedEvent: boolean = true;
   isOpen = signal<boolean>(false);
   optionModal = signal<optionAdd>('add');
   clienteInfo = signal<any>({});
   private fb = inject(FormBuilder);
+  clientesService = inject(ClientesService);
 
   formClientes = this.fb.group({
       nombre: [''],
@@ -27,6 +29,14 @@ export class ClientesListComponent {
       email: [''],
       notas: ['']
   });
+
+  clientesResource = rxResource({
+        stream: () =>
+          this.clientesService.getClientes({
+            offset: 0,
+            limit: 10
+          })
+      });
 
   setModal(cliente: any){
     this.formClientes.patchValue({

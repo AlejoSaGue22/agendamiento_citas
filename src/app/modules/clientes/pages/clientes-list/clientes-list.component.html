@@ -5,102 +5,105 @@
     </h3>
     <div class="space-y-6">
         <app-table-listclientes (openModal)="openModal($event)"
+                                [clientesList]="clientesResource.value()?.clients ?? []"
                                 (option)="optionModal.set($event)"
                                 (clienteEdit)="setModal($event)" />
     </div>
 
-    <app-modal
-        [isOpen]="isOpen()"
-        (close)="closeModal()"
-        className="max-w-[1000px] p-6 lg:p-10">
-        <div class="flex flex-col px-2 overflow-y-auto custom-scrollbar">
-
-            <div class="flex flex-col px-2 overflow-y-auto custom-scrollbar">
-                <form [formGroup]="formClientes" (ngSubmit)="onSubmit()">
-                        <div>
-                                <h5 class="mb-2 font-semibold text-gray-800 modal-title text-theme-xl dark:text-white/90 lg:text-2xl">
-                                    {{ optionModal() == 'edit' ? 'Editar Cliente' : 'Agregar Cliente' }}
-                                </h5>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">
-                                    Planifique su próximo gran momento: programe o edite una cliente para mantenerse en el buen camino
-                                </p>
-                        </div>
-
-                        <div class="flex gap-3 mt-6">
-                            <div class="w-1/4">
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Nombre
-                                    </label>
-                                    <input
-                                    type="text"
-                                    formControlName="nombre"
-                                    placeholder="Ingrese el nombre"
-                                    class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-                                    />
-                            </div>
-
-                            <div class="w-1/4">
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Apellidos
-                                    </label>
-                                    <input
-                                    type="text"
-                                    formControlName="apellido"
-                                    placeholder="Ingrese el apellido"
-                                    class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-                                    />
-                            </div>
-
-                            <div class="w-1/4">
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Telefono
-                                    </label>
-                                    <input
-                                    id="telefono"
-                                    type="text"
-                                    formControlName="telefono"
-                                    placeholder="Ingrese el telefono"
-                                    class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-                                    />
-                            </div>
-
-                            <div class="w-1/4">
-                                    <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                        Correo
-                                    </label>
-                                    <input
-                                    id="correo"
-                                    type="text"
-                                    formControlName="email"
-                                    placeholder="micorreo@mail.com"
-                                    class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
-                                    />
-                            </div>
-
-                        </div>
-
-                        <div class="mt-6">
-                            <div>
-                                    <app-label>Notas y Preferencias</app-label>
-                                    <app-text-area
-                                        [value]="formClientes.controls.notas.value!"
-                                        (valueChange)="onformChange()"
-                                        [rows]="6"
-                                    ></app-text-area>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center gap-3 mt-6 modal-footer sm:justify-end">
-                                <button
-                                    type="button"
-                                    class="btn btn-success btn-update-event flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
-                                >
-                                    {{ optionModal() == 'edit' ? 'Actualizar Cliente' : 'Agregar Cliente' }}
-                                </button>
-                        </div>
-                </form>
-            </div>  
-
-        </div>
-  </app-modal>
 </div>
+
+
+<app-modal
+    [isOpen]="isOpen()"
+    (close)="closeModal()"
+    className="max-w-[1000px] p-6 lg:p-10">
+    <div class="flex flex-col px-2 overflow-y-auto custom-scrollbar">
+
+        <div class="flex flex-col px-2 overflow-y-auto custom-scrollbar">
+            <form [formGroup]="formClientes" (ngSubmit)="onSubmit()">
+                    <div>
+                            <h5 class="mb-2 font-semibold text-gray-800 modal-title text-theme-xl dark:text-white/90 lg:text-2xl">
+                                {{ optionModal() == 'edit' ? 'Editar Cliente' : 'Agregar Cliente' }}
+                            </h5>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">
+                                Planifique su próximo gran momento: programe o edite una cliente para mantenerse en el buen camino
+                            </p>
+                    </div>
+
+                    <div class="flex gap-3 mt-6">
+                        <div class="w-1/4">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Nombre
+                                </label>
+                                <input
+                                type="text"
+                                formControlName="nombre"
+                                placeholder="Ingrese el nombre"
+                                class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                                />
+                        </div>
+
+                        <div class="w-1/4">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Apellidos
+                                </label>
+                                <input
+                                type="text"
+                                formControlName="apellido"
+                                placeholder="Ingrese el apellido"
+                                class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                                />
+                        </div>
+
+                        <div class="w-1/4">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Telefono
+                                </label>
+                                <input
+                                id="telefono"
+                                type="text"
+                                formControlName="telefono"
+                                placeholder="Ingrese el telefono"
+                                class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                                />
+                        </div>
+
+                        <div class="w-1/4">
+                                <label class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                                    Correo
+                                </label>
+                                <input
+                                id="correo"
+                                type="text"
+                                formControlName="email"
+                                placeholder="micorreo@mail.com"
+                                class="dark:bg-dark-900 h-11 placeholder:text-gray-400 w-full appearance-none rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 shadow-theme-xs focus:border-brand-300 focus:outline-hidden focus:ring-3 focus:ring-brand-500/10 dark:border-gray-700 dark:bg-gray-900 dark:text-white/90"
+                                />
+                        </div>
+
+                    </div>
+
+                    <div class="mt-6">
+                        <div>
+                                <app-label>Notas y Preferencias</app-label>
+                                <app-text-area
+                                    [value]="formClientes.controls.notas.value!"
+                                    (valueChange)="onformChange()"
+                                    [rows]="6"
+                                ></app-text-area>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 mt-6 modal-footer sm:justify-end">
+                            <button
+                                type="button"
+                                class="btn btn-success btn-update-event flex w-full justify-center rounded-lg bg-brand-500 px-4 py-2.5 text-sm font-medium text-white hover:bg-brand-600 sm:w-auto"
+                            >
+                                {{ optionModal() == 'edit' ? 'Actualizar Cliente' : 'Agregar Cliente' }}
+                            </button>
+                    </div>
+            </form>
+        </div>  
+
+    </div>
+</app-modal>

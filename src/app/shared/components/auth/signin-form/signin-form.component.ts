@@ -6,6 +6,7 @@ import { ButtonComponent } from '../../ui/button/button.component';
 import { InputFieldComponent } from '../../form/input/input-field.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NotificationService } from '../../../services/notificacion.service';
 
 interface FormLogin {
   email: string;
@@ -30,6 +31,7 @@ interface FormLogin {
 export class SigninFormComponent {
 
   private fb = inject(FormBuilder);
+  notificationService = inject(NotificationService);
   showPassword = false;
   isChecked = false;
   valueForm = output<FormLogin>()
@@ -59,7 +61,11 @@ export class SigninFormComponent {
     this.formAuth.markAllAsTouched();
 
     if (!valid) {
-      alert('Formulario Invalido');
+      this.notificationService.error(
+          'Complete todos los campos',
+          'Formulario inválido',
+          5000
+      );
       return
     }
     
