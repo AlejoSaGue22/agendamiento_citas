@@ -36,7 +36,7 @@ export const routes: Routes = [
                         component: PersonalComponent
                       },
                       {
-                        path: 'new',
+                        path: ':id',
                         component: FormPersonal
                       },
                       {

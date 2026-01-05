@@ -7,6 +7,7 @@ import { InputFieldComponent } from '../../form/input/input-field.component';
 import { Router, RouterModule } from '@angular/router';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NotificationService } from '../../../services/notificacion.service';
+import { FormErrorLabel } from "../../../../utils/components/form-error-label/form-error-label.component";
 
 interface FormLogin {
   email: string;
@@ -23,8 +24,9 @@ interface FormLogin {
     InputFieldComponent,
     RouterModule,
     FormsModule,
-    ReactiveFormsModule
-  ],
+    ReactiveFormsModule,
+    FormErrorLabel
+],
   templateUrl: './signin-form.component.html',
   styles: ``
 })

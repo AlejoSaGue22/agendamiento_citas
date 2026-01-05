@@ -5,3 +5,15 @@ export interface User {
     isActive: boolean;
     roles:    string;
 }
+
+export interface Roles{
+    id: number;
+    name: string;
+}
+
+export interface TypeDocument{
+    id: number;
+    name: string;
+    abbreviation: string;
+    description: string;
+}

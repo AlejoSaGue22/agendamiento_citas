@@ -11,7 +11,7 @@
   <div class="p-6 overflow-y-auto max-h-[300px]">
     <!-- Lista de servicios -->
     <div class="grid grid-cols-4 gap-2.5 space-y-3">
-        @for (service of serviciosDisponibles; track $index) {
+        @for (service of serviciosDisponiblesInput; track $index) {
             <div class="flex items-center justify-between rounded-lg border border-gray-200 p-4 hover:bg-gray-50 dark:border-gray-700 dark:hover:bg-gray-800">
               <div class="flex items-center space-x-4">
                 <input 
@@ -46,7 +46,7 @@
         Resumen seleccionado
       </h4>
       <p class="text-sm text-gray-600 dark:text-gray-400">
-        Servicios seleccionados: <span class="font-medium">{{ getSelectedServices().length }}</span> de {{ serviciosDisponibles.length }}
+        Servicios seleccionados: <span class="font-medium">{{ getSelectedServices().length }}</span> de {{ serviciosDisponiblesInput!.length }}
       </p>
     </div>
 </div>

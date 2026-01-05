@@ -89,6 +89,7 @@
                 class="form-input"
                 required
               />
+              <app-form-error-label [errorType]="formAuth.get('email')!" />
             </div>
     
             <div>
@@ -115,6 +116,7 @@
                   }
                 </span>
               </div>
+               <app-form-error-label [errorType]="formAuth.get('password')!" />
             </div>
     
             <div class="flex items-center justify-between">

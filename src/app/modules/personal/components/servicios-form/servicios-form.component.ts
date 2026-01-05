@@ -1,14 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { AfterContentInit, Component, output } from '@angular/core';
+import { AfterContentInit, Component, Input, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-export interface ServicePersonal {
-  id: number;
-  name: string;
-  duration: number; // en minutos
-  price: number;
-  selected: boolean;
-}
+import { ServicePersonal } from '../../interfaces/personal-interface';
 
 @Component({
   selector: 'app-servicios-form',
@@ -19,18 +12,18 @@ export class ServiciosFormComponent implements AfterContentInit {
 
   servicioPersonal = output<ServicePersonal[]>();
 
+  @Input() serviciosDisponiblesInput?: ServicePersonal[];
+
+  serviciosDisponibles: ServicePersonal[] = [];
+  
+
   ngAfterContentInit(): void {
+
+      if (this.serviciosDisponiblesInput && this.serviciosDisponiblesInput.length) {
+        this.serviciosDisponibles = this.serviciosDisponiblesInput.map(s => ({ ...s, selected: !!s.selected }));
+      }
       this.emitService();
   }
-
-  serviciosDisponibles: ServicePersonal[] = [
-    { id: 1, name: 'Corte de cabello', duration: 30, price: 150, selected: false },
-    { id: 2, name: 'Coloración', duration: 120, price: 500, selected: false },
-    { id: 3, name: 'Manicure', duration: 45, price: 100, selected: false },
-    { id: 4, name: 'Pedicure', duration: 60, price: 120, selected: false },
-    { id: 5, name: 'Masaje facial', duration: 30, price: 200, selected: false },
-    { id: 6, name: 'Depilación', duration: 45, price: 180, selected: false },
-  ];
 
   toggleService(service: ServicePersonal) {
     service.selected = !service.selected;
@@ -38,11 +31,11 @@ export class ServiciosFormComponent implements AfterContentInit {
   }
 
   private emitService(){
-    this.servicioPersonal.emit(this.serviciosDisponibles);
+    this.servicioPersonal.emit(this.getSelectedServices() || this.serviciosDisponibles);
   }
 
   getSelectedServices(): ServicePersonal[] {
-    return this.serviciosDisponibles.filter(service => service.selected);
+    return this.serviciosDisponiblesInput!.filter(service => service.selected);
   }
 
 }
