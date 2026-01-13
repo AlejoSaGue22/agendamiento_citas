@@ -6,7 +6,7 @@
         </h3>
         <div class="space-y-3">
                 <app-table-listclientes (openModal)="openModal($event)"
-                                        [clientesList]="clientesResource.value()?.clients ?? []"
+                                        [clientesList]="clientesResource.value().clients"
                                         (option)="optionModal.set($event)"
                                         (openModalDelete)="openModalDelete.set($event)"
                                         (clienteEdit)="setModal($event)" />                     

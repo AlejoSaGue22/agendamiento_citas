@@ -19,6 +19,8 @@ const formEmpty: PersonalInterface = {
     type_document: '',
     is_active: false,
     email: '',
+    availability: [],
+    services: [],
     created_at: '',
 };
 

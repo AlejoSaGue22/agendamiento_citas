@@ -24,4 +24,6 @@ export class CatalogService {
       map(res => res)
     );
   }
+
+  
 }

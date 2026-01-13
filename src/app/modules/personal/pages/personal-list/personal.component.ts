@@ -7,6 +7,7 @@ import { ModalComponent } from '../../../../shared/components/ui/modal/modal.com
 import { optionAdd } from '../../../servicios/components/add-servicio-modal/add-servicio-modal.component';
 import { ButtonComponent } from "../../../../shared/components/ui/button/button.component";
 import { PersonalInterface } from '../../interfaces/personal-interface';
+import { NotificationService } from '../../../../shared/services/notificacion.service';
 
 @Component({
   selector: 'app-personal-component',
@@ -19,6 +20,7 @@ export class PersonalComponent {
   optionModal = signal<optionAdd>('add');
   openModalDelete = signal<boolean>(false);
   personalInfo = signal<PersonalInterface | null>(null);
+  notificationService = inject(NotificationService);  
 
 
   usersResource = rxResource({
@@ -46,7 +48,25 @@ export class PersonalComponent {
               if (resp.success) {
                   this.usersResource.reload();
                   this.closeModal();
+                  this.notificationService.success(
+                    "Personal eliminado con exito",
+                    'Exito',
+                    4000
+                  );
+              } else {
+                this.notificationService.error(
+                  "Error al eliminar el personal",
+                  'Error',
+                  4000
+                );
               }
+          },
+          error: (err) => {
+            this.notificationService.error(
+              "Error al eliminar el personal",
+              'Error',
+              4000
+            );
           }
       });
   }

@@ -47,7 +47,7 @@ export class SignInComponent {
                 
             this.loader.hide();
             this.notificacionService.error(
-              'Credenciales incorrectas. Por favor, intenta nuevamente.',
+              isAuthenticaded.error.message,
               'Error de autenticación',
               5000
             );

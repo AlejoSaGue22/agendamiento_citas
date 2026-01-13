@@ -1,132 +1,122 @@
+@if (personalResource.isLoading()) {
+  <div class="flex justify-center items-center h-screen">
+    <app-loader/>
+  </div>
+}
 
-<form [formGroup]="formPersonal" (ngSubmit)="onSubmit()">
-          <div class="rounded-2xl">
-                          <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
-                              <h2 class="text-lg font-medium text-gray-800 dark:text-white">
-                                Descripcion
-                              </h2>
-                          </div>
-                          <div class="p-4 sm:p-6 dark:border-gray-800">
-                              <!--  -->
-                              <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
-                                <div>
-                                  <label for="product-name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
-                                      Nombre
-                                  </label>
-                                  <input type="text"
-                                    id="product-name"
-                                    [class.border-red-500]="formPersonal.get('nombre')?.errors ?? false"
-                                    formControlName="nombre"
-                                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 ocus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
-                                    placeholder="Ingresa nombre de la Persona">
+@if (personalResource.hasValue()) {
+  <form [formGroup]="formPersonal" (ngSubmit)="onSubmit()">
+      <div class="rounded-2xl">
+        <div class="border-b border-gray-200 px-6 py-4 dark:border-gray-800">
+          <h2 class="text-lg font-medium text-gray-800 dark:text-white">
+            Descripcion
+          </h2>
+        </div>
+        <div class="p-4 sm:p-6 dark:border-gray-800">
+          <!--  -->
+          <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+            <div>
+              <label for="product-name" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">
+                Nombre
+              </label>
+              <input type="text" id="product-name" [class.border-red-500]="formPersonal.get('nombre')?.errors ?? false"
+                formControlName="nombre"
+                class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 ocus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                placeholder="Ingresa nombre de la Persona">
 
-                                    <app-form-error-label [errorType]="formPersonal.get('nombre')!" />
-                                </div>  
+              <app-form-error-label [errorType]="formPersonal.get('nombre')!" />
+            </div>
 
-                                <div>
-                                  <app-label>Rol</app-label>
-                                  <app-select
-                                      [options]="optionsRoles"
-                                      placeholder="Seleccionar"
-                                      (valueChange)="onformChange($event, 'rol')"
-                                      [value]="formPersonal.controls.rol.value!"
-                                      className="dark:bg-dark-900">
-                                  </app-select>
-                                  <app-form-error-label [errorType]="formPersonal.get('rol')!" />
-                                </div> 
+            <div>
+              <app-label>Rol</app-label>
+              <app-select [options]="optionsRoles" placeholder="Seleccionar" (valueChange)="onformChange($event, 'rol')"
+                [value]="formPersonal.controls.rol.value!" className="dark:bg-dark-900">
+              </app-select>
+              <app-form-error-label [errorType]="formPersonal.get('rol')!" />
+            </div>
 
-                                <div class="col-span-full">
-                                    <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
-                                        <div>
-                                            <app-label>Tipo Documento </app-label>
-                                            <app-select
-                                                [options]="optionsDocumento"
-                                                placeholder="Seleccionar"
-                                                (valueChange)="onformChange($event, 'tipoDoc')"
-                                                [value]="formPersonal.controls.tipoDocumento.value!"
-                                                className="dark:bg-dark-900">
-                                            </app-select>
-                                            <app-form-error-label [errorType]="formPersonal.get('tipoDocumento')!" />
-                                        </div>
+            <div class="col-span-full">
+              <div class="grid grid-cols-1 gap-5 sm:grid-cols-3">
+                <div>
+                  <app-label>Tipo Documento </app-label>
+                  <app-select [options]="optionsDocumento" placeholder="Seleccionar"
+                    (valueChange)="onformChange($event, 'tipoDoc')" [value]="formPersonal.controls.tipoDocumento.value!"
+                    className="dark:bg-dark-900">
+                  </app-select>
+                  <app-form-error-label [errorType]="formPersonal.get('tipoDocumento')!" />
+                </div>
 
-                                        <div>
-                                          <label for="weight"
-                                            class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Numero Documento
-                                          </label>
-                                          <input type="number" 
-                                            id="numeroDocumento"
-                                            [class.border-red-500]="formPersonal.get('numeroDocumento')?.errors ?? false"
-                                            formControlName="numeroDocumento"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" 
-                                            placeholder="32111111">
-                                            <app-form-error-label [errorType]="formPersonal.get('numeroDocumento')!" />
-                                        </div>
+                <div>
+                  <label for="weight" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Numero
+                    Documento
+                  </label>
+                  <input type="number" id="numeroDocumento"
+                    [class.border-red-500]="formPersonal.get('numeroDocumento')?.errors ?? false"
+                    formControlName="numeroDocumento"
+                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                    placeholder="32111111">
+                  <app-form-error-label [errorType]="formPersonal.get('numeroDocumento')!" />
+                </div>
 
-                                        <div>
-                                          <label for="weight"
-                                            class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Telefono
-                                          </label>
-                                          <input type="number" 
-                                            id="phone" 
-                                            formControlName="phone"
-                                            [class.border-red-500]="formPersonal.get('phone')?.errors ?? false"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" 
-                                            placeholder="310-000-000">
-                                            <app-form-error-label [errorType]="formPersonal.get('phone')!" />
-                                        </div>
-                                        <div>
-                                          <label for="length"
-                                            class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Correo
-                                          </label>
-                                          <input type="text" 
-                                            autocomplete="off"
-                                            id="email" 
-                                            formControlName="email"
-                                            [class.border-red-500]="formPersonal.get('email')?.errors ?? false"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" 
-                                            placeholder="user@mail.com">
-                                            <app-form-error-label [errorType]="formPersonal.get('email')!" />
-                                        </div>
-                                        <div>
-                                          <label for="length"
-                                            class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Contraseña
-                                          </label>
-                                          <input type="password" 
-                                            id="password" 
-                                            formControlName="password"
-                                            autocomplete="off"
-                                            [class.border-red-500]="formPersonal.get('password')?.errors ?? false"
-                                            class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30" 
-                                            placeholder="Contraseña">
-                                            <app-form-error-label [errorType]="formPersonal.get('password')!" />
-                                        </div>
-                                    </div>
-                                </div>
+                <div>
+                  <label for="weight" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Telefono
+                  </label>
+                  <input type="number" id="phone" formControlName="phone"
+                    [class.border-red-500]="formPersonal.get('phone')?.errors ?? false"
+                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                    placeholder="310-000-000">
+                  <app-form-error-label [errorType]="formPersonal.get('phone')!" />
+                </div>
+                <div>
+                  <label for="length" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Correo
+                  </label>
+                  <input type="text" autocomplete="off" id="email" formControlName="email"
+                    [class.border-red-500]="formPersonal.get('email')?.errors ?? false"
+                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                    placeholder="user@mail.com">
+                  <app-form-error-label [errorType]="formPersonal.get('email')!" />
+                </div>
+                <div>
+                  <label for="length" class="mb-1.5 block text-sm font-medium text-gray-700 dark:text-gray-400">Contraseña
+                    @if (personalID() !== 'new') {
+                      <span class="text-xs text-gray-500">(Opcional - dejar vacío para mantener actual)</span>
+                    }
+                  </label>
+                  <input type="password" id="password" formControlName="password" autocomplete="off"
+                    [class.border-red-500]="formPersonal.get('password')?.errors ?? false"
+                    class="dark:bg-dark-900 shadow-theme-xs focus:border-brand-300 focus:ring-brand-500/10 dark:focus:border-brand-800 h-11 w-full rounded-lg border border-gray-300 bg-transparent px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:ring-3 focus:outline-hidden dark:border-gray-700 dark:bg-gray-900 dark:text-white/90 dark:placeholder:text-white/30"
+                    [placeholder]="personalID() === 'new' ? 'Contraseña' : 'Dejar vacío para mantener contraseña actual'">
 
-                              
-                              </div>
-                              <!--  -->
-                          </div>
+                  <app-form-error-label [errorType]="formPersonal.get('password')!" />
+                </div>
+              </div>
+            </div>
+
+
           </div>
+          <!--  -->
+        </div>
+      </div>
 
-          <div>
-            <app-disponibilidad-form [selectedDisponibilidad]="disponibilidad()" (disponibilidadChange)="onDisponibilidadChanged($event)"/>
-          </div>
+      <div>
+        <app-disponibilidad-form [selectedDisponibilidad]="disponibilidad()" (disponibilidadChange)="onDisponibilidadChanged($event)" />
+      </div>
 
-          <div class="mt-4">
-            <app-servicios-form [serviciosDisponiblesInput]="servicios()" (servicioPersonal)="onServicioChange($event)" />
-          </div>
+      <div class="mt-4">
+        <app-servicios-form [serviciosDisponiblesInput]="servicios()" (servicioPersonal)="onServicioChange($event)" />
+      </div>
 
-          <!-- Button -->
-          <div class="flex flex-col gap-3 sm:flex-row sm:justify-end mt-2.5">
-            <button type="button"
-                    class="shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]"
-                    routerLink="/panel/personal">
-              Cancelar
-            </button>
-            <button type="submit" 
-                    class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition">
-              Guardar
-            </button>
-          </div>
-</form>
+      <!-- Button -->
+      <div class="flex flex-col gap-3 sm:flex-row sm:justify-end mt-2.5">
+        <button type="button"
+          class="shadow-theme-xs inline-flex items-center justify-center gap-2 rounded-lg bg-white px-4 py-3 text-sm font-medium text-gray-700 ring-1 ring-gray-300 transition hover:bg-gray-50 dark:bg-gray-800 dark:text-gray-400 dark:ring-gray-700 dark:hover:bg-white/[0.03]"
+          routerLink="/panel/personal">
+          Cancelar
+        </button>
+        <button type="submit"
+          class="bg-brand-500 shadow-theme-xs hover:bg-brand-600 inline-flex items-center justify-center gap-2 rounded-lg px-4 py-3 text-sm font-medium text-white transition">
+          Guardar
+        </button>
+      </div>
+  </form>
+}
